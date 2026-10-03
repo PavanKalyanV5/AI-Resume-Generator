@@ -1,0 +1,13 @@
+[package]
+name = "resume-ui"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7"
+rust-embed = { version = "8", features = ["debug-embed"], optional = true }
+
+# Needs `npm run build` in apps/web first. Off: serve from $RESUME_UI_DIR instead.
+[features]
+default = ["embed-ui"]
+embed-ui = ["dep:rust-embed"]

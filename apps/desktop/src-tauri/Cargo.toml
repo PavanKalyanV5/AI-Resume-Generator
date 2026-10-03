@@ -1,0 +1,31 @@
+[package]
+name = "resume-desktop"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "resume_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+resume-companion = { path = "../../../crates/companion", features = ["embed-ui"] }
+
+# The full local server (not built for Android: the phone only runs the companion proxy and pairs with a desktop).
+# Enable `companion` on desktop to run the companion shell instead.
+[target.'cfg(not(target_os = "android"))'.dependencies]
+axum = "0.7"
+resume-ui = { path = "../../../crates/ui", default-features = false, features = ["embed-ui"] }
+resume-server = { path = "../../../crates/server", default-features = false, features = ["embed-ui", "embeddings"] }
+resume-core = { path = "../../../crates/core", default-features = false, features = ["embeddings"] }
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-single-instance = "2"
+
+[features]
+companion = []

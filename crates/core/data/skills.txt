@@ -1,0 +1,325 @@
+python|python3
+java
+javascript|js|ecmascript
+typescript|ts
+c#|csharp|c sharp
+c++|cpp
+golang|go lang
+rust
+ruby
+php
+kotlin
+swift
+scala
+perl
+bash|shell scripting
+powershell
+sql
+nosql
+pl/sql|plsql
+t-sql|tsql
+matlab
+julia
+haskell
+elixir
+erlang
+clojure
+dart
+lua
+objective-c|objc
+r language|rlang
+cobol
+fortran
+assembly
+solidity
+.net|dotnet|.net core
+asp.net|aspnet
+spring boot|springboot
+spring framework
+hibernate
+django
+flask
+fastapi
+rails|ruby on rails
+laravel
+express.js|expressjs
+node.js|nodejs|node
+react|react.js|reactjs
+react native
+next.js|nextjs
+angular|angularjs
+vue|vue.js|vuejs
+nuxt
+svelte
+jquery
+redux
+html|html5
+css|css3
+sass|scss
+tailwind|tailwindcss
+bootstrap
+webpack
+vite
+graphql
+rest api|restful|rest apis|restful api
+grpc
+websocket|websockets
+soap
+openapi|swagger
+microservices|microservice
+serverless
+event-driven|event driven
+domain-driven design|ddd
+tdd|test-driven development|test driven development
+bdd
+design patterns
+oop|object-oriented programming|object oriented programming
+functional programming
+system design
+distributed systems
+api design
+postgresql|postgres
+mysql
+mariadb
+sql server|mssql
+oracle
+sqlite
+mongodb|mongo
+redis
+cassandra
+dynamodb
+elasticsearch|elastic search
+opensearch
+neo4j
+couchdb
+cosmos db|cosmosdb
+snowflake
+bigquery
+redshift
+databricks
+clickhouse
+kafka|apache kafka
+rabbitmq
+activemq
+pulsar
+kinesis
+sqs
+sns
+spark|apache spark|pyspark
+hadoop
+hive
+flink
+airflow|apache airflow
+dbt
+etl|elt
+data pipelines|data pipeline
+data warehouse|data warehousing
+data modeling|data modelling
+data lake
+data engineering
+data analysis|data analytics
+data visualization|data visualisation
+tableau
+power bi|powerbi
+looker
+excel|microsoft excel
+pandas
+numpy
+scipy
+scikit-learn|sklearn
+matplotlib
+jupyter
+machine learning|ml
+deep learning
+neural networks
+nlp|natural language processing
+computer vision
+reinforcement learning
+llm|llms|large language models|large language model
+generative ai|genai|gen ai
+prompt engineering
+rag|retrieval augmented generation|retrieval-augmented generation
+langchain
+llamaindex
+openai
+hugging face|huggingface
+transformers
+pytorch
+tensorflow
+keras
+xgboost
+mlops
+feature engineering
+a/b testing|ab testing
+statistics
+time series
+recommender systems|recommendation systems
+vector databases|vector database
+pinecone
+aws|amazon web services
+ec2
+s3
+lambda|aws lambda
+ecs
+eks
+rds
+cloudformation
+cdk|aws cdk
+azure|microsoft azure
+azure devops
+azure functions
+gcp|google cloud|google cloud platform
+cloud run
+firebase
+heroku
+vercel
+cloudflare
+digitalocean
+openstack
+docker
+kubernetes|k8s
+helm
+istio
+openshift
+terraform
+ansible
+puppet
+chef infra
+pulumi
+vagrant
+jenkins
+github actions
+gitlab ci|gitlab ci/cd
+circleci
+travis ci
+argocd|argo cd
+gitops
+ci/cd|cicd|continuous integration
+continuous delivery|continuous deployment
+devops
+sre|site reliability engineering
+infrastructure as code|iac
+prometheus
+grafana
+datadog
+splunk
+new relic|newrelic
+elk|elk stack
+opentelemetry
+sentry
+observability
+monitoring
+linux
+unix
+windows server
+nginx
+apache http server
+haproxy
+networking
+tcp/ip
+dns
+load balancing
+git
+github
+gitlab
+bitbucket
+svn|subversion
+jira
+confluence
+agile
+scrum
+kanban
+scaled agile|safe framework
+oauth|oauth2
+openid connect|oidc
+saml
+jwt
+sso|single sign-on
+iam
+encryption
+cybersecurity|cyber security
+penetration testing|pentesting
+owasp
+soc 2|soc2
+iso 27001
+gdpr
+hipaa
+pci dss|pci-dss
+siem
+zero trust
+vulnerability management
+junit
+pytest
+jest
+mocha
+cypress
+selenium
+playwright
+postman
+unit testing
+integration testing
+end-to-end testing|e2e testing
+load testing
+test automation
+qa|quality assurance
+ios
+android
+flutter
+xamarin
+unity
+unreal engine
+swiftui
+jetpack compose
+embedded systems
+rtos
+fpga
+arduino
+raspberry pi
+ros2|robot operating system
+iot|internet of things
+blockchain
+ethereum
+web3
+sap
+salesforce
+servicenow
+dynamics 365
+sharepoint
+workday
+netsuite
+shopify
+wordpress
+stripe
+twilio
+figma
+sketch
+ux design|ux
+ui design|ui
+product management
+project management
+stakeholder management
+roadmapping|roadmap
+requirements gathering
+business analysis
+technical writing
+code review
+mentoring
+leadership
+communication
+problem solving
+cross-functional collaboration
+performance optimization|performance optimisation
+scalability
+high availability
+disaster recovery
+caching
+multithreading|concurrency
+memory management
+compilers
+algorithms
+data structures
+graph databases
+geospatial|gis
+etl pipelines
+edge computing
+5g

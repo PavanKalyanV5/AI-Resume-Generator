@@ -1,0 +1,8 @@
+artifacts/
+/data/
+dist/
+models/
+node_modules/
+out/
+release-artifacts/
+target/

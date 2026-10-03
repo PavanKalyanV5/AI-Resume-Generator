@@ -1,0 +1,90 @@
+% !TeX root = main.tex
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{array}
+\usepackage{iftex}
+
+% ATS friendly unicode mapping (pdfTeX specific)
+\ifPDFTeX
+  \input{glyphtounicode}
+  \pdfgentounicode=1
+\fi
+
+\pagestyle{empty}
+
+% adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% sections formatting
+\titleformat{\section}{
+  \vspace{-2pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule\vspace{-5pt}]
+
+% custom commands
+\newcommand{\cvitem}[1]{
+  \item\small{
+    {#1\vspace{-2pt}}
+  }
+}
+
+\newcommand{\cvheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \small#3 & \small #4 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\cvheadingwithrole}[6]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{#2} \\
+      \small\textbf{#3} - \small\textit{#4} & \small\textbf{#5} \\
+      \multicolumn{2}{@{}l}{\small\textbf{\underline{#6}}}
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\cvheadingstart}{\begin{itemize}[leftmargin=0in, label={}]}
+\newcommand{\cvheadingend}{\end{itemize}}
+\newcommand{\cvitemstart}{\begin{itemize}[label=\textbullet]}
+\newcommand{\cvitemend}{\end{itemize}\vspace{-5pt}}
+
+% Clean Boxed table for technical skills (zero heavy dependencies)
+\newcommand{\cvskillstable}[1]{
+  \noindent\fbox{%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+      \vspace{2pt}
+      \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash\bfseries}p{4.8cm} X@{}}
+        #1
+      \end{tabularx}
+      \vspace{2pt}
+    \end{minipage}%
+  }
+}
+
+\newcommand{\cvskill}[2]{
+  \textbf{#1} & #2\\
+}
+
+% Clean Certification entry template: \cvcert{Title}{Company}{URL}
+\newcommand{\cvcert}[3]{
+  \item\small{\textbf{#1} \textnormal{[#2]} \hfill \href{#3}{\textbf{\underline{Certificate Link}}}\vspace{-2pt}}
+}

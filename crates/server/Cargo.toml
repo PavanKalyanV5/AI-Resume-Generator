@@ -1,0 +1,45 @@
+[package]
+name = "resume-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+resume-core = { path = "../core", default-features = false }
+resume-ui = { path = "../ui", default-features = false }
+tokio = { version = "1", features = ["full"] }
+axum = { version = "0.7", features = ["ws"] }
+tower-http = { version = "0.5", features = ["cors"] }
+rusqlite = { version = "0.31", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+uuid = { version = "1", features = ["v4"] }
+sha2 = "0.10"
+hex = "0.4"
+rand = "0.8"
+async-stream = "0.3"
+async-trait = "0.1"
+regex = "1"
+futures-core = "0.3"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+aes-gcm = "0.10"
+scraper = "0.27.0"
+base64 = "0.22"
+lopdf = "0.42"
+rcgen = { version = "0.14.10", default-features = false, features = ["ring", "pem"] }
+axum-server = { version = "0.8.0", features = ["tls-rustls-no-provider"] }
+rustls = { version = "0.23.45", default-features = false, features = ["ring", "std"] }
+hostname = "0.4.2"
+if-addrs = "0.15.0"
+time = "0.3.55"
+tokio-util = "0.7.19"
+futures-util = "0.3"
+
+[dev-dependencies]
+tower = { version = "0.4", features = ["util"] }
+tokio-tungstenite = "0.29"
+
+[features]
+default = ["embeddings", "embed-ui"]
+embeddings = ["resume-core/embeddings"]
+embed-ui = ["resume-ui/embed-ui"]

@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = ["crates/core", "crates/server", "crates/ui", "crates/companion", "apps/desktop/src-tauri"]
+
+# Keep target/ small: line tables are enough for backtraces; dependency debug info is dead weight.
+[profile.dev]
+debug = "line-tables-only"
+incremental = false
+
+[profile.dev.package."*"]
+debug = false
+
+[profile.test]
+debug = "line-tables-only"
