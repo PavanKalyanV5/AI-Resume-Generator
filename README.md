@@ -205,3 +205,15 @@ To be decided. Placeholder: all rights reserved until a license file is added.
 - **On-device paths untested:** the Android share-sheet hand-off, QR scan and the pairing flow have been exercised only against local test servers, not on a physical phone.
 - **Tests:** the server tests default to the built-in PDF renderer for speed; only two tests exercise real LaTeX (`tectonic`).
 - **Generated resumes cover one JD at a time:** the learning system needs a handful of approved resumes and corrections before its rules and models show a measurable effect.
+
+## Building on Windows
+
+Windows builds must be made on Windows (Tauri cannot cross-compile to it from Linux). Untested so far: the Unix-only file-permission and `/dev/urandom` code was made portable, and everything still compiles on Linux, but no Windows build has been run.
+
+1. Install Git, Node 20+, Rust (rustup, MSVC toolchain) and the Visual Studio Build Tools "Desktop development with C++" workload. Windows 11 ships the WebView2 runtime.
+2. `cd apps\web; npm install; npm run build`
+3. `cargo install tauri-cli --version "^2" --locked`, then in `apps\desktop\src-tauri` run `cargo tauri build`. Installers appear under `target\release\bundle`.
+4. Without `tectonic.exe` on PATH the built-in PDF renderer is used. Set `GEMINI_API_KEY` as a user environment variable or paste the key in Settings.
+5. To migrate data, copy `app.db` and `master.key` together from `~/.local/share/dev.resumegen.desktop/` into `%APPDATA%\dev.resumegen.desktop\`.
+
+The Rust tests that assert Unix file modes (`tests/vendors.rs`, `tests/remote.rs`, companion `tests/proxy.rs`) are Unix-only and do not compile on Windows; run `cargo build`, not `cargo test`, there.

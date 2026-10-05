@@ -76,7 +76,8 @@ pub fn run() {
         let url = format!("http://127.0.0.1:{port}/{q}").parse()?;
         let w = WebviewWindowBuilder::new(app, "main", WebviewUrl::External(url)).title("Resume Generator");
         #[cfg(not(any(target_os = "android", target_os = "ios")))]
-        let w = w.inner_size(1200.0, 850.0).min_inner_size(800.0, 600.0);
+        // disable_drag_drop_handler: let the page receive HTML5 file drops (Tauri otherwise swallows them natively; also required on Windows).
+        let w = w.inner_size(1200.0, 850.0).min_inner_size(800.0, 600.0).disable_drag_drop_handler();
         w.build()?;
         Ok(())
     })

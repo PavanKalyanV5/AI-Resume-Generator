@@ -28,7 +28,8 @@ export function DropZone({ onFile, accept, children, label, filled }: { onFile: 
   const key = (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.current?.click() } }
   return (
     <div style={{ perspective: 900 }}>
-      <input ref={input} type="file" accept={accept} hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); e.target.value = '' }} />
+      {/* No `accept` on the native input when empty: the GTK chooser in WebKitGTK turns mixed extension/MIME lists into a filter that hides every file. onFile validates the type. */}
+      <input ref={input} type="file" {...(accept ? { accept } : {})} hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); e.target.value = '' }} />
       <motion.div ref={box} role="button" tabIndex={0} aria-label={label} className={`drop ${over ? 'over' : ''} ${filled ? 'has' : ''}`}
         style={{ rotateX: rx, rotateY: ry, scale }} onClick={() => input.current?.click()} onKeyDown={key}
         onDragEnter={track} onDragOver={track} onDragLeave={leave} onDrop={drop} whileTap={{ scale: 0.985 }}>

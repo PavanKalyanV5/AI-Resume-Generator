@@ -250,7 +250,7 @@ export default function Intake() {
             <AnimatePresence mode="wait" initial={false}>
               {pending ? <ReviewPanel key="rev" file={pending.file} r={pending.r} onUse={useImport} onDiscard={() => setPending(null)} /> : (
                 <motion.div key="dz" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
-                  <DropZone onFile={accept} accept=".json,.yaml,.yml,.pdf,.docx,application/json" label="Drop a resume file or press Enter to choose one" filled={!!resume}>
+                  <DropZone onFile={accept} accept="" label="Drop a resume file or press Enter to choose one" filled={!!resume}>
                     {importing ? (
                       <div className="dz-busy" role="status"><span className="scan" aria-hidden /><b>Reading {importing}</b><span className="small muted">Everything is parsed on this machine.</span></div>
                     ) : resume ? (

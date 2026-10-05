@@ -97,10 +97,9 @@ impl Remote {
         std::fs::create_dir_all(&self.dir)?;
         std::fs::write(self.cert(), cert.pem())?;
         {
-            use std::os::unix::fs::OpenOptionsExt;
             use std::io::Write;
             let _ = std::fs::remove_file(self.key());
-            std::fs::OpenOptions::new().write(true).create_new(true).mode(0o600).open(self.key())?.write_all(kp.serialize_pem().as_bytes())?;
+            crate::keys::private_options().write(true).create_new(true).open(self.key())?.write_all(kp.serialize_pem().as_bytes())?;
         }
         let list = json!(ips.iter().map(|(i, _)| i.to_string()).collect::<Vec<_>>()).to_string();
         a.conn.lock().unwrap().execute("INSERT INTO settings(key,value) VALUES('remote_cert_ips',?1) ON CONFLICT(key) DO UPDATE SET value=?1", [list])?;

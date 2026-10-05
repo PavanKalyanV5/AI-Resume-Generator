@@ -57,15 +57,23 @@ fn is_pin_failure(e: &reqwest::Error) -> bool {
     false
 }
 
+/// Owner-only file options: mode 0600 on Unix; on Windows the app-data folder's ACL already limits it to the user.
+fn private_options() -> std::fs::OpenOptions {
+    let mut o = std::fs::OpenOptions::new();
+    #[cfg(unix)]
+    std::os::unix::fs::OpenOptionsExt::mode(&mut o, 0o600);
+    o
+}
+
 impl St {
     fn file(&self) -> PathBuf {
         self.dir.join("companion.json")
     }
     fn save(&self, c: &Cfg) -> std::io::Result<()> {
-        use std::{io::Write, os::unix::fs::OpenOptionsExt};
+        use std::io::Write;
         let tmp = self.dir.join("companion.json.tmp");
         let _ = std::fs::remove_file(&tmp);
-        std::fs::OpenOptions::new().write(true).create_new(true).mode(0o600).open(&tmp)?.write_all(serde_json::to_vec(c)?.as_slice())?;
+        private_options().write(true).create_new(true).open(&tmp)?.write_all(serde_json::to_vec(c)?.as_slice())?;
         std::fs::rename(tmp, self.file())
     }
     fn get(&self) -> Option<(Cfg, reqwest::Client)> {
@@ -89,7 +97,7 @@ pub async fn serve(config_dir: impl Into<PathBuf>) -> anyhow::Result<(u16, Strin
     std::fs::create_dir_all(&dir)?;
     let cfg = std::fs::read(dir.join("companion.json")).ok().and_then(|b| serde_json::from_slice::<Cfg>(&b).ok()).map(|c| { let cl = pinned(&c.fp); (c, cl) });
     let mut raw = [0u8; 32];
-    std::io::Read::read_exact(&mut std::fs::File::open("/dev/urandom")?, &mut raw)?;
+    rand::RngCore::fill_bytes(&mut rand::rngs::OsRng, &mut raw);
     let key = hex::encode(raw);
     let ck = hex::encode(Sha256::digest(format!("ck:{key}")));
     let st = Arc::new(St { dir: dir.clone(), cfg: Mutex::new(cfg), share: Mutex::new(None) });
@@ -103,10 +111,10 @@ pub async fn serve(config_dir: impl Into<PathBuf>) -> anyhow::Result<(u16, Strin
     let l = tokio::net::TcpListener::bind(("127.0.0.1", 0)).await?;
     let port = l.local_addr()?.port();
     {
-        use std::{io::Write, os::unix::fs::OpenOptionsExt};
+        use std::io::Write;
         let f = dir.join("companion.port");
         let _ = std::fs::remove_file(&f);
-        std::fs::OpenOptions::new().write(true).create_new(true).mode(0o600).open(f)?.write_all(format!("{port}\n{key}").as_bytes())?;
+        private_options().write(true).create_new(true).open(f)?.write_all(format!("{port}\n{key}").as_bytes())?;
     }
     let k = key.clone();
     let h = tokio::spawn(async move {

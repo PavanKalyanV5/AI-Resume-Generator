@@ -2,7 +2,16 @@
 use aes_gcm::{aead::{Aead, KeyInit, Payload}, Aes256Gcm, Nonce};
 use anyhow::{anyhow, bail, Result};
 use rand::RngCore;
-use std::{io::Write, os::unix::fs::{OpenOptionsExt, PermissionsExt}, path::Path};
+use std::{io::Write, path::Path};
+
+/// Options for creating an owner-only file: mode 0600 on Unix. On Windows the file inherits the user
+/// profile folder's ACL, which already excludes other users.
+pub fn private_options() -> std::fs::OpenOptions {
+    let mut o = std::fs::OpenOptions::new();
+    #[cfg(unix)]
+    std::os::unix::fs::OpenOptionsExt::mode(&mut o, 0o600);
+    o
+}
 
 /// Reads the 32-byte master key, creating it (mode 0600) on first use. Refuses group/other-accessible files.
 fn master(path: &Path) -> Result<[u8; 32]> {
@@ -12,13 +21,14 @@ fn master(path: &Path) -> Result<[u8; 32]> {
         }
         let mut k = [0u8; 32];
         rand::rngs::OsRng.fill_bytes(&mut k);
-        match std::fs::OpenOptions::new().write(true).create_new(true).mode(0o600).open(path) {
+        match private_options().write(true).create_new(true).open(path) {
             Ok(mut f) => { f.write_all(&k)?; f.sync_all()?; }
             Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => {} // lost a creation race; read theirs
             Err(e) => return Err(e.into()),
         }
     }
-    if std::fs::metadata(path)?.permissions().mode() & 0o077 != 0 {
+    #[cfg(unix)]
+    if std::os::unix::fs::PermissionsExt::mode(&std::fs::metadata(path)?.permissions()) & 0o077 != 0 {
         bail!("master key file {} is group/other accessible; chmod 600 it", path.display());
     }
     std::fs::read(path)?.try_into().map_err(|_| anyhow!("master key file must be exactly 32 bytes"))
